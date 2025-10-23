@@ -3,16 +3,16 @@ from stack import Stack
 
 def check_brackets(brackets: str) -> str:
         
-    stack1, stack2, stack3 = [Stack() for _ in range(3)]
+    NUM = 3
+    stacks = [Stack() for _ in range(NUM)]
 
-    bracket_dict = {
-        '{': stack1, 
-        '}': stack1,
-        '(': stack2,
-        ')': stack2,
-        '[': stack3,
-        ']': stack3
-    }
+    BRACKETS = '(){}[]'
+    bracket_dict = {}
+
+    for bracket in range(NUM * 2):
+        key = BRACKETS[bracket]
+        stacks_index = bracket // 2
+        bracket_dict[key] = stacks[stacks_index]
 
     for lett in brackets:
       
@@ -28,7 +28,7 @@ def check_brackets(brackets: str) -> str:
             else:
                 stack.pop()
 
-    if stack1.is_empty() and stack2.is_empty() and stack3.is_empty():
+    if sum(map(lambda x: x.size(), stacks)) == 0:
         return 'Сбалансированно'
     else:
         return 'Несбалансированно'
